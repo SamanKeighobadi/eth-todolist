@@ -2553,9 +2553,62 @@
     "name": "solc",
     "version": "0.5.16+commit.9c3226ce.Emscripten.clang"
   },
-  "networks": {},
+  "networks": {
+    "5777": {
+      "events": {
+        "0xe21fa966ca5cd02748c0752352d18c48165e61cb55b4c29cccf924b5a95fcff1": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "internalType": "uint256",
+              "name": "id",
+              "type": "uint256"
+            },
+            {
+              "indexed": false,
+              "internalType": "bool",
+              "name": "completed",
+              "type": "bool"
+            }
+          ],
+          "name": "TaskCompleted",
+          "type": "event"
+        },
+        "0x05d0fb833127fc08168556d0e7ca9554fc3f6bc843b3b7d2bf1c35aea6bab660": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "internalType": "uint256",
+              "name": "id",
+              "type": "uint256"
+            },
+            {
+              "indexed": false,
+              "internalType": "string",
+              "name": "content",
+              "type": "string"
+            },
+            {
+              "indexed": false,
+              "internalType": "bool",
+              "name": "completed",
+              "type": "bool"
+            }
+          ],
+          "name": "TaskCreated",
+          "type": "event"
+        }
+      },
+      "links": {},
+      "address": "0x301c566296634cBA31A498F6a982d63095064E1f",
+      "transactionHash": "0x8c133594ba7d97c889cb8f0dac3403be05169e33e74440a7dc3fe8086fd2b9b5"
+    }
+  },
   "schemaVersion": "3.2.3",
-  "updatedAt": "2022-02-26T05:34:10.281Z",
+  "updatedAt": "2022-02-26T05:34:49.615Z",
+  "networkType": "ethereum",
   "devdoc": {
     "methods": {}
   },
