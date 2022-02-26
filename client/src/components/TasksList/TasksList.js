@@ -1,6 +1,7 @@
-import React,{Fragment} from 'react';
+import React, { Fragment } from "react";
+import PropTypes from 'prop-types'
 
-const TasksList = ({ tasks,toggleCompleteTask }) => {
+const TasksList = ({ tasks, toggleCompleteTask }) => {
   return (
     <Fragment>
       {tasks.map((task) => (
@@ -20,5 +21,10 @@ const TasksList = ({ tasks,toggleCompleteTask }) => {
     </Fragment>
   );
 };
+
+TasksList.propTypes = {
+    tasks:PropTypes.array,
+    toggleCompleteTask:PropTypes.func
+}
 
 export default TasksList;

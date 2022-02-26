@@ -79,7 +79,7 @@ const App = () => {
             <div className="text-white capitalize text-xl">Loading...</div>
           </div>
         ) : (
-          <div className="bg-white rounded-xl  p-8 shadow-xl w-96 h-96 overflow-y-auto  ">
+          <div className="bg-white rounded-xl  p-8 shadow-xl w-96 h-80 overflow-y-auto  ">
             <form
               onSubmit={(e) => {
                 e.preventDefault();
