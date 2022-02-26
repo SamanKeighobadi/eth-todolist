@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from "react";
 import Web3 from "web3";
-import TasksList from "./components/TasksList/TasksList";
 import TodoList from "./contracts/TodoList.json";
+//components
+import TasksList from "./components/TasksList/TasksList";
 
 const App = () => {
+
+  // init states
   const [account, setAccount] = useState("");
   const [taskCount, setTaskCount] = useState(0);
   const [tasks, setTasks] = useState([]);
@@ -11,10 +14,15 @@ const App = () => {
   const [text, setText] = useState("");
   const address = "0xa996868e4491930bd4c232eA796919b0eA97668C";
 
+  /**
+   * 
+   * @param {String} content title of task
+   */
   const addNewTask = (content) => {
     setLoading(true);
     const web3 = new Web3(Web3.givenProvider || "http://localhost:8545");
     const todoList = new web3.eth.Contract(TodoList.abi, address);
+    // call function which create new task
     todoList.methods
       .createTask(content)
       .send({ from: account })
@@ -23,10 +31,15 @@ const App = () => {
       });
   };
 
+  /**
+   * 
+   * @param {number} id id of task which we want to complete
+   */
   const toggleCompleteTask = (id) => {
     setLoading(true);
     const web3 = new Web3(Web3.givenProvider || "http://localhost:8545");
     const todoList = new web3.eth.Contract(TodoList.abi, address);
+    // call function which change completed state
     todoList.methods
       .toggleCompleted(id)
       .send({ from: account })
@@ -36,12 +49,15 @@ const App = () => {
   };
 
   const loadBlockchainData = async () => {
+    // init web3 
     const web3 = new Web3(Web3.givenProvider || "http://localhost:8545");
     const accounts = await web3.eth.getAccounts();
     setAccount(accounts[0]);
+    // find and intract with blockchain
     const todoList = new web3.eth.Contract(TodoList.abi, address);
     const taskCount = await todoList.methods.taskCount().call();
     setTaskCount(taskCount);
+    //fetch created tasks 
     const tasksContainer = [];
     for (var i = 1; i <= taskCount; i++) {
       const task = await todoList.methods.tasks(i).call();
