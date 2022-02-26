@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Web3 from "web3";
+import TasksList from "./components/TasksList/TasksList";
 import TodoList from "./contracts/TodoList.json";
 
 const App = () => {
@@ -8,7 +9,7 @@ const App = () => {
   const [tasks, setTasks] = useState([]);
   const [loading, setLoading] = useState(true);
   const [text, setText] = useState("");
-  const address = "0x503BB3a1730f91F674970D8cA18Ef8d0b6EbC70C";
+  const address = "0xa996868e4491930bd4c232eA796919b0eA97668C";
 
   const addNewTask = (content) => {
     setLoading(true);
@@ -60,7 +61,6 @@ const App = () => {
         {loading ? (
           <div className="">
             <div className="text-white capitalize text-xl">Loading...</div>
-            {/* <ClipLoader size={20} /> */}
           </div>
         ) : (
           <div className="bg-white rounded-xl  p-8 shadow-xl w-96 h-96 overflow-y-auto  ">
@@ -84,20 +84,7 @@ const App = () => {
                 Submit{" "}
               </button>
             </form>
-            {tasks.map((task) => (
-              <div
-                key={task.id}
-                className="space-y-6 capitalize text-gray-600 mt-4 font-semibold flex justify-between items-center"
-              >
-                <label>{task.content}</label>
-                <input
-                  type={"checkbox"}
-                  onClick={() => toggleCompleteTask(task.id)}
-                  defaultChecked={task.completed}
-                  className=''
-                />
-              </div>
-            ))}
+            <TasksList tasks={tasks} toggleCompleteTask={toggleCompleteTask} />
           </div>
         )}
       </div>
