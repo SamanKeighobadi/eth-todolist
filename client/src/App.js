@@ -58,7 +58,10 @@ const App = () => {
     <>
       <div className="flex items-center justify-center flex-col min-h-screen bg-indigo-900">
         {loading ? (
-          <div>loading..</div>
+          <div className="">
+            <div className="text-white capitalize text-xl">Loading...</div>
+            {/* <ClipLoader size={20} /> */}
+          </div>
         ) : (
           <div className="bg-white rounded-xl  p-8 shadow-xl w-96 h-96 overflow-y-auto  ">
             <form
