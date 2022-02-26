@@ -9,7 +9,7 @@ const App = () => {
   const [loading, setLoading] = useState(true);
   const [text, setText] = useState("");
   const address = "0x503BB3a1730f91F674970D8cA18Ef8d0b6EbC70C";
-  const todos = [];
+
 
   const addNewTask = (content) => {
     setLoading(true);
