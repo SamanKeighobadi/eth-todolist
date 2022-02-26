@@ -9,6 +9,7 @@ const App = () => {
   const [loading, setLoading] = useState(true);
   const [text,setText] = useState('')
   const address = "0x503BB3a1730f91F674970D8cA18Ef8d0b6EbC70C";
+  const todos = []
 
   const addNewTask = (content) => {
     setLoading(true)
@@ -27,16 +28,16 @@ const App = () => {
     const accounts = await web3.eth.getAccounts();
     setAccount(accounts[0]);
     const todoList = new web3.eth.Contract(TodoList.abi, address);
-    console.log(todoList);
     const taskCount = await todoList.methods.taskCount().call();
     setTaskCount(taskCount);
+    const tasksContainer = [];
     for (var i = 1; i <= taskCount; i++) {
       const task = await todoList.methods.tasks(i).call();
-      console.log(task);
-      setTasks([...tasks, task]);
+      tasksContainer.push(task)
+      setTasks(tasksContainer);
     }
     setLoading(false);
-  };
+  };  
 
   useEffect(() => {
     loadBlockchainData();
