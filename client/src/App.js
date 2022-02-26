@@ -7,7 +7,20 @@ const App = () => {
   const [taskCount, setTaskCount] = useState(0);
   const [tasks, setTasks] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [text,setText] = useState('')
   const address = "0x503BB3a1730f91F674970D8cA18Ef8d0b6EbC70C";
+
+  const addNewTask = (content) => {
+    setLoading(true)
+    const web3 = new Web3(Web3.givenProvider || "http://localhost:8545");
+    const todoList = new web3.eth.Contract(TodoList.abi, address);
+    todoList.methods
+      .createTask(content)
+      .send({ from: account })
+      .once("receipt", (receipt) => {
+        setLoading(false)
+      });
+  };
 
   const loadBlockchainData = async () => {
     const web3 = new Web3(Web3.givenProvider || "http://localhost:8545");
@@ -25,10 +38,6 @@ const App = () => {
     setLoading(false);
   };
 
-  tasks.map(task => {
-    console.log(task.content);
-  })
-
   useEffect(() => {
     loadBlockchainData();
   }, []);
@@ -40,14 +49,17 @@ const App = () => {
           <div>loading..</div>
         ) : (
           <>
-            <form>
-              <input type={"text"} placeholder="todo..." />
+            <form onSubmit={e => {
+              e.preventDefault();
+              addNewTask(text);
+            }}>
+              <input type={"text"} onChange={e => setText(e.target.value)} placeholder="todo..." />
               <button> Submit </button>
             </form>
             {tasks.map((task) => (
               <div key={task.id}>
                 <label>{task.content}</label>
-                <input type={'checkbox'}  />
+                <input type={"checkbox"} />
               </div>
             ))}
           </>
