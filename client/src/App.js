@@ -4,6 +4,7 @@ import TodoList from "./contracts/TodoList.json";
 //components
 import TasksList from "./components/TasksList/TasksList";
 import TaskInput from "./components/common/TaskInput";
+import Navbar from "./components/common/Navbar";
 
 const App = () => {
   // init states
@@ -73,17 +74,23 @@ const App = () => {
 
   return (
     <>
-      <div className="flex items-center justify-center flex-col min-h-screen bg-indigo-900">
-        {loading ? (
-          <div className="">
-            <div className="text-white capitalize text-xl">Loading...</div>
-          </div>
-        ) : (
-          <div className="bg-white rounded-xl  p-8 shadow-xl w-96 h-80 overflow-y-auto  ">
-            <TaskInput addNewTask={addNewTask} />
-            <TasksList tasks={tasks} toggleCompleteTask={toggleCompleteTask} />
-          </div>
-        )}
+      <div >
+      <Navbar account={account} />
+        <div className="flex items-center justify-center flex-col min-h-screen bg-indigo-900">
+          {loading ? (
+            <div className="">
+              <div className="text-white capitalize text-xl">Loading...</div>
+            </div>
+          ) : (
+            <div className="bg-white rounded-xl  p-8 drop-shadow-xl w-96 h-80 overflow-y-auto  ">
+              <TaskInput addNewTask={addNewTask} />
+              <TasksList
+                tasks={tasks}
+                toggleCompleteTask={toggleCompleteTask}
+              />
+            </div>
+          )}
+        </div>
       </div>
     </>
   );
