@@ -1,7 +1,7 @@
 import React, { Fragment } from "react";
 import PropTypes from 'prop-types'
 
-const TasksList = ({ tasks, toggleCompleteTask }) => {
+const TasksList = ({ tasks, toggleCompleteTask,deleteTask }) => {
   return (
     <Fragment>
       {tasks.map((task) => (
@@ -16,6 +16,7 @@ const TasksList = ({ tasks, toggleCompleteTask }) => {
             defaultChecked={task.completed}
             className=""
           />
+          <span onClick={() => deleteTask(task.id)} >&items;</span>
         </div>
       ))}
     </Fragment>

@@ -13,7 +13,7 @@ const App = () => {
   const [tasks, setTasks] = useState([]);
   const [loading, setLoading] = useState(true);
   const [text, setText] = useState("");
-  const address = "0x4Ec1710b51c7C59c96fA8a1197C5693570C10B36";
+  const address = "0xecB558479D6a02fA8a5280Bd7Bc5bD7FD4339289";
 
   /**
    *
@@ -31,6 +31,15 @@ const App = () => {
         setLoading(false);
       });
   };
+
+    const deleteTask = (id) =>{
+      setLoading(true);
+      const web3 = new Web3(Web3.givenProvider || "http://localhost:8545");
+      const todoList = new web3.eth.Contract(TodoList.abi, address);
+      todoList.methods.removeTask(id).send({from:account}).once("receipt",receipt => {
+        setLoading(false)
+      })
+    }
 
   /**
    *
@@ -87,6 +96,7 @@ const App = () => {
               <TasksList
                 tasks={tasks}
                 toggleCompleteTask={toggleCompleteTask}
+                deleteTask={deleteTask}
               />
             </div>
           )}

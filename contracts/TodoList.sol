@@ -31,4 +31,8 @@ contract TodoList {
         tasks[_id] = _task;
         emit TaskCompleted(_id, _task.completed);
     }
+
+    function removeTask(uint _id) public {
+        delete tasks[_id];
+    }
 }
