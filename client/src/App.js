@@ -5,8 +5,6 @@ import TodoList from "./contracts/TodoList.json";
 import TasksList from "./components/TasksList/TasksList";
 import TaskInput from "./components/common/TaskInput";
 import Navbar from "./components/common/Navbar";
-// React Toastify for notifications
-import { ToastContainer, toast } from "react-toastify";
 
 const App = () => {
   // init states
@@ -31,6 +29,7 @@ const App = () => {
       .once("receipt", (receipt) => {
         setLoading(false);
         alert("task created");
+        
       });
   };
 

@@ -2,6 +2,7 @@
   "dependencies": {
     "@heroicons/react": "^1.0.5",
     "prop-types": "^15.8.1",
-    "react-toastify": "^8.2.0"
+    "sweetalert2": "^11.4.4",
+    "sweetalert2-react-content": "^4.2.0"
   }
 }
