@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
 import Web3 from "web3";
 import TodoList from "./contracts/TodoList.json";
-//components
+//custom components
 import TasksList from "./components/TasksList/TasksList";
 import TaskInput from "./components/common/TaskInput";
 import Navbar from "./components/common/Navbar";
+// React Toastify for notifications
+import { ToastContainer, toast } from "react-toastify";
 
 const App = () => {
   // init states
@@ -12,8 +14,7 @@ const App = () => {
   const [taskCount, setTaskCount] = useState(0);
   const [tasks, setTasks] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [text, setText] = useState("");
-  const address = "0xecB558479D6a02fA8a5280Bd7Bc5bD7FD4339289";
+  const address = "0x13FCc4F583C4209B0b17AF26B10fa02ff2e3F5D6";
 
   /**
    *
@@ -29,17 +30,26 @@ const App = () => {
       .send({ from: account })
       .once("receipt", (receipt) => {
         setLoading(false);
+        alert("task created");
       });
   };
 
-    const deleteTask = (id) =>{
-      setLoading(true);
-      const web3 = new Web3(Web3.givenProvider || "http://localhost:8545");
-      const todoList = new web3.eth.Contract(TodoList.abi, address);
-      todoList.methods.removeTask(id).send({from:account}).once("receipt",receipt => {
-        setLoading(false)
-      })
-    }
+  /**
+   *
+   * @param {number} id id of task which we want to delete
+   */
+
+  const deleteTask = (id) => {
+    setLoading(true);
+    const web3 = new Web3(Web3.givenProvider || "http://localhost:8545");
+    const todoList = new web3.eth.Contract(TodoList.abi, address);
+    todoList.methods
+      .removeTask(id)
+      .send({ from: account })
+      .once("receipt", (receipt) => {
+        setLoading(false);
+      });
+  };
 
   /**
    *
@@ -71,9 +81,12 @@ const App = () => {
     const tasksContainer = [];
     for (var i = 1; i <= taskCount; i++) {
       const task = await todoList.methods.tasks(i).call();
-      tasksContainer.push(task);
-      setTasks(tasksContainer);
+      if (task.content !== "") {
+        tasksContainer.push(task);
+        setTasks(tasksContainer);
+      }
     }
+
     setLoading(false);
   };
 
@@ -83,8 +96,8 @@ const App = () => {
 
   return (
     <>
-      <div >
-      <Navbar account={account} />
+      <div>
+        <Navbar account={account} />
         <div className="flex items-center justify-center flex-col min-h-screen bg-indigo-900">
           {loading ? (
             <div className="">

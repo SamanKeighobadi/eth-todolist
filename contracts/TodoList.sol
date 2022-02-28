@@ -14,6 +14,7 @@ contract TodoList {
 
     event TaskCreated(uint256 id, string countent, bool completed);
     event TaskCompleted(uint256 id, bool completed);
+    event TaskDeleted(uint id);
 
     constructor() public {
         createTask("start learning blockchain");
@@ -34,5 +35,6 @@ contract TodoList {
 
     function removeTask(uint _id) public {
         delete tasks[_id];
+        emit TaskDeleted(_id);
     }
 }
