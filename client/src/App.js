@@ -5,6 +5,10 @@ import TodoList from "./contracts/TodoList.json";
 import TasksList from "./components/TasksList/TasksList";
 import TaskInput from "./components/common/TaskInput";
 import Navbar from "./components/common/Navbar";
+// SweetAlert2 
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
+
 
 const App = () => {
   // init states
@@ -12,6 +16,7 @@ const App = () => {
   const [taskCount, setTaskCount] = useState(0);
   const [tasks, setTasks] = useState([]);
   const [loading, setLoading] = useState(true);
+  const Alert = withReactContent(Swal);
   const address = "0x13FCc4F583C4209B0b17AF26B10fa02ff2e3F5D6";
 
   /**
@@ -28,7 +33,13 @@ const App = () => {
       .send({ from: account })
       .once("receipt", (receipt) => {
         setLoading(false);
-        alert("task created");
+        Alert.fire({
+          icon:'success',
+          title:"Task successfully created !",
+          showConfirmButton:false,
+          timer:3000,
+        })
+        setTimeout(() =>window.location.reload(),3000);
         
       });
   };
@@ -47,6 +58,13 @@ const App = () => {
       .send({ from: account })
       .once("receipt", (receipt) => {
         setLoading(false);
+        Alert.fire({
+          icon:'success',
+          title:"Task successfully deleted !",
+          showConfirmButton:false,
+          timer:3000,
+        })
+        setTimeout(() =>window.location.reload(),3000);
       });
   };
 
@@ -64,6 +82,13 @@ const App = () => {
       .send({ from: account })
       .once("receipt", (receipt) => {
         setLoading(false);
+        Alert.fire({
+          icon:'success',
+          title:"Task Done !",
+          showConfirmButton:false,
+          timer:3000,
+        })
+        setTimeout(() =>window.location.reload(),3000);
       });
   };
 
