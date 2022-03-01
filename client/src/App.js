@@ -17,7 +17,10 @@ const App = () => {
   const [tasks, setTasks] = useState([]);
   const [loading, setLoading] = useState(true);
   const Alert = withReactContent(Swal);
-  const address = "0x13FCc4F583C4209B0b17AF26B10fa02ff2e3F5D6";
+  const address = "0x777bC3a2C8c8D6BdDAfe0eaA05D844752f9423B7";
+
+  const web3 = new Web3(Web3.givenProvider || "http://localhost:8545");
+  const todoList = new web3.eth.Contract(TodoList.abi, address);
 
   /**
    *
@@ -25,8 +28,6 @@ const App = () => {
    */
   const addNewTask = (content) => {
     setLoading(true);
-    const web3 = new Web3(Web3.givenProvider || "http://localhost:8545");
-    const todoList = new web3.eth.Contract(TodoList.abi, address);
     // call function which create new task
     todoList.methods
       .createTask(content)
@@ -51,8 +52,6 @@ const App = () => {
 
   const deleteTask = (id) => {
     setLoading(true);
-    const web3 = new Web3(Web3.givenProvider || "http://localhost:8545");
-    const todoList = new web3.eth.Contract(TodoList.abi, address);
     todoList.methods
       .removeTask(id)
       .send({ from: account })
@@ -74,8 +73,6 @@ const App = () => {
    */
   const toggleCompleteTask = (id) => {
     setLoading(true);
-    const web3 = new Web3(Web3.givenProvider || "http://localhost:8545");
-    const todoList = new web3.eth.Contract(TodoList.abi, address);
     // call function which change completed state
     todoList.methods
       .toggleCompleted(id)
