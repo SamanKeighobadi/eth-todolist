@@ -126,6 +126,14 @@ const App = () => {
     setLoading(false);
   };
 
+  const copyToClipboard = (text) =>{
+    navigator.clipboard.writeText(text);
+    Alert.fire({
+      icon:'success',
+      title:"Coped to clipboard!"
+    })
+   }
+
   useEffect(() => {
     loadWeb3();
     loadBlockchainData();
@@ -134,7 +142,7 @@ const App = () => {
   return (
     <>
       <div>
-        <Navbar account={account} />
+        <Navbar account={account} copyToClipboard={copyToClipboard} />
         <div className="flex items-center justify-center flex-col min-h-screen bg-indigo-900">
           {loading ? (
             <div className="">
