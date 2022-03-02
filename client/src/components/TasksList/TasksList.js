@@ -17,8 +17,7 @@ const TasksList = ({ tasks, toggleCompleteTask, deleteTask }) => {
           <div className="flex justify-between items-center space-x-5">
             <CheckCircleIcon  onClick={() => toggleCompleteTask(task.id)} className="h-5 w-5 text-green-500 cursor-pointer"  />
             <TrashIcon  onClick={() => deleteTask(task.id)} className="h-5 w-5 text-red-500 cursor-pointer" />
-          </div>
-          {/* <span onClick={() => deleteTask(task.id)} >&items;</span> */}
+        </div>
         </div>
       ))}
     </Fragment>

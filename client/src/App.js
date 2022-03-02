@@ -84,13 +84,28 @@ const App = () => {
       });
   };
 
+  const loadWeb3 = async () => {
+    if (window.ethereum) {
+      window.web3 = new Web3(window.ethereum);
+      await window.ethereum.enable();
+    } else if (window.web3) {
+      window.web3 = new Web3(window.web3.currentProvider);
+    } else {
+      Alert.fire({
+        icon:'info',
+        title:"Please Install Metamask",
+      })
+      setLoading(true)
+    }
+  };
+
   const loadBlockchainData = async () => {
     const web3 = new Web3(Web3.givenProvider || "http://localhost:8545");
     const networkId = await web3.eth.net.getId();
     const networkData = await TodoList.networks[networkId];
 
     const todoList = new web3.eth.Contract(TodoList.abi, networkData.address);
-    setTodoList(todoList); 
+    setTodoList(todoList);
 
     const accounts = await web3.eth.getAccounts();
     setAccount(accounts[0]);
@@ -112,6 +127,7 @@ const App = () => {
   };
 
   useEffect(() => {
+    loadWeb3();
     loadBlockchainData();
   }, []);
 
