@@ -5,10 +5,9 @@ import TodoList from "./contracts/TodoList.json";
 import TasksList from "./components/TasksList/TasksList";
 import TaskInput from "./components/common/TaskInput";
 import Navbar from "./components/common/Navbar";
-// SweetAlert2 
+// SweetAlert2
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
-
 
 const App = () => {
   // init states
@@ -16,11 +15,8 @@ const App = () => {
   const [taskCount, setTaskCount] = useState(0);
   const [tasks, setTasks] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [todoList, setTodoList] = useState(null);
   const Alert = withReactContent(Swal);
-  const address = "0x777bC3a2C8c8D6BdDAfe0eaA05D844752f9423B7";
-
-  const web3 = new Web3(Web3.givenProvider || "http://localhost:8545");
-  const todoList = new web3.eth.Contract(TodoList.abi, address);
 
   /**
    *
@@ -35,13 +31,12 @@ const App = () => {
       .once("receipt", (receipt) => {
         setLoading(false);
         Alert.fire({
-          icon:'success',
-          title:"Task successfully created !",
-          showConfirmButton:false,
-          timer:3000,
-        })
-        setTimeout(() =>window.location.reload(),3000);
-        
+          icon: "success",
+          title: "Task successfully created !",
+          showConfirmButton: false,
+          timer: 3000,
+        });
+        setTimeout(() => window.location.reload(), 3000);
       });
   };
 
@@ -58,12 +53,12 @@ const App = () => {
       .once("receipt", (receipt) => {
         setLoading(false);
         Alert.fire({
-          icon:'success',
-          title:"Task successfully deleted !",
-          showConfirmButton:false,
-          timer:3000,
-        })
-        setTimeout(() =>window.location.reload(),3000);
+          icon: "success",
+          title: "Task successfully deleted !",
+          showConfirmButton: false,
+          timer: 3000,
+        });
+        setTimeout(() => window.location.reload(), 3000);
       });
   };
 
@@ -80,22 +75,27 @@ const App = () => {
       .once("receipt", (receipt) => {
         setLoading(false);
         Alert.fire({
-          icon:'success',
-          title:"Task Done !",
-          showConfirmButton:false,
-          timer:3000,
-        })
-        setTimeout(() =>window.location.reload(),3000);
+          icon: "success",
+          title: "Task Done !",
+          showConfirmButton: false,
+          timer: 3000,
+        });
+        setTimeout(() => window.location.reload(), 3000);
       });
   };
 
   const loadBlockchainData = async () => {
-    // init web3
     const web3 = new Web3(Web3.givenProvider || "http://localhost:8545");
+    const networkId = await web3.eth.net.getId();
+    const networkData = await TodoList.networks[networkId];
+
+    const todoList = new web3.eth.Contract(TodoList.abi, networkData.address);
+    setTodoList(todoList); 
+
     const accounts = await web3.eth.getAccounts();
     setAccount(accounts[0]);
     // find and intract with blockchain
-    const todoList = new web3.eth.Contract(TodoList.abi, address);
+
     const taskCount = await todoList.methods.taskCount().call();
     setTaskCount(taskCount);
     //fetch created tasks
