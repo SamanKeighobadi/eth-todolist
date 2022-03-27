@@ -21,3 +21,6 @@ To practice and learn how to integrate solidity language and smart contracts wit
   <li> PropTypes for type cheching </li>
   <li> Heroicons for icons </li>
  </ul>
+
+
+
