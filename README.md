@@ -1,6 +1,7 @@
 # Todo List Application + Truffle , React , TailwindCSS
 Simple todo list app developed with back-end Solidity Smart Contract and Front-end with Truffle React and Tailwindcss CDN
 
+
 ## Why was this project developed? 
 To practice and learn how to integrate solidity language and smart contracts with Front
 
@@ -20,3 +21,6 @@ To practice and learn how to integrate solidity language and smart contracts wit
   <li> PropTypes for type cheching </li>
   <li> Heroicons for icons </li>
  </ul>
+
+
+
