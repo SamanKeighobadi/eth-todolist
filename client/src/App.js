@@ -12,7 +12,7 @@ import withReactContent from "sweetalert2-react-content";
 const App = () => {
   // init states
   const [account, setAccount] = useState("");
-  const [taskCount, setTaskCount] = useState(0);
+  const [, setTaskCount] = useState(0);
   const [tasks, setTasks] = useState([]);
   const [loading, setLoading] = useState(true);
   const [todoList, setTodoList] = useState(null);
@@ -44,7 +44,6 @@ const App = () => {
    *
    * @param {number} id id of task which we want to delete
    */
-
   const deleteTask = (id) => {
     setLoading(true);
     todoList.methods
@@ -137,7 +136,9 @@ const App = () => {
   useEffect(() => {
     loadWeb3();
     loadBlockchainData();
+    
   }, []);
+ 
 
   return (
     <>
